@@ -3,14 +3,14 @@
 import { MapPin, GraduationCap, Code2, Server } from 'lucide-react'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { GlassCard } from '@/components/shared/GlassCard'
-import { AnimatedAvatar } from '@/components/shared/AnimatedAvatar'
+import { CartoonAvatar } from '@/components/shared/CartoonAvatar'
 import { BIO, ACHIEVEMENTS } from '@/lib/data'
 
 function AvatarCard() {
   return (
     <SectionReveal direction="left">
       <div className="flex flex-col items-center gap-6">
-        <AnimatedAvatar />
+        <CartoonAvatar />
 
         {/* Name + title */}
         <div className="text-center">
