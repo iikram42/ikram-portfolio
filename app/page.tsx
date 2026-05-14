@@ -3,6 +3,7 @@ import { Footer } from '@/components/layout/Footer'
 import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import { CursorGlow } from '@/components/shared/CursorGlow'
 import { CommandPalette } from '@/components/shared/CommandPalette'
+import { AmbientOrbs } from '@/components/shared/AmbientOrbs'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Experience } from '@/components/sections/Experience'
@@ -18,7 +19,8 @@ export default function Home() {
       <ScrollProgress />
       <CursorGlow />
       <Navbar />
-      <main>
+      <main className="relative">
+        <AmbientOrbs />
         <Hero />
         <About />
         <Experience />

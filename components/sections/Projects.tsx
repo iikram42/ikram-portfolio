@@ -1,10 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Server, Shield, Activity, Layers } from 'lucide-react'
 import { GithubIcon } from '@/components/shared/SocialIcons'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { GlassCard } from '@/components/shared/GlassCard'
+import { TiltCard } from '@/components/shared/TiltCard'
 import { PROJECTS } from '@/lib/data'
 import type { Project } from '@/types'
 
@@ -21,8 +21,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
   return (
     <SectionReveal delay={index * 0.1}>
-      <motion.div whileHover={{ y: -4, transition: { duration: 0.2 } }} className="h-full">
-        <GlassCard className="h-full flex flex-col gradient-border" hover={false}>
+      <TiltCard className="h-full" intensity={8}>
+        <GlassCard className="h-full flex flex-col gradient-border relative overflow-hidden" hover={false}>
           <div className="flex items-start justify-between gap-3 mb-4">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${meta.color} border`}>
               <Icon className="w-5 h-5" />
@@ -63,7 +63,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {project.category}
           </span>
         </GlassCard>
-      </motion.div>
+      </TiltCard>
     </SectionReveal>
   )
 }

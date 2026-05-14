@@ -12,7 +12,53 @@ function AvatarCard() {
     <SectionReveal direction="left">
       <div className="flex flex-col items-center gap-6">
         {/* Animated avatar */}
-        <div className="relative w-56 h-56 md:w-64 md:h-64">
+        <div className="relative w-56 h-56 md:w-64 md:h-64" style={{ perspective: '600px' }}>
+          {/* Outer orbit ring — tilted 3D */}
+          <motion.div
+            animate={{ rotateY: 360 }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+            className="absolute rounded-full border border-cyan-400/20"
+            style={{
+              inset: '-24px',
+              transformStyle: 'preserve-3d',
+              transform: 'rotateX(70deg)',
+            }}
+          />
+          {/* Middle orbit ring */}
+          <motion.div
+            animate={{ rotateY: -360 }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+            className="absolute rounded-full border border-purple-500/15"
+            style={{
+              inset: '-14px',
+              transformStyle: 'preserve-3d',
+              transform: 'rotateX(60deg) rotateZ(30deg)',
+            }}
+          />
+          {/* Orbiting dot */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+            className="absolute"
+            style={{ inset: '-20px' }}
+          >
+            <div
+              className="absolute w-3 h-3 rounded-full bg-cyan-400 top-0 left-1/2 -translate-x-1/2"
+              style={{ boxShadow: '0 0 8px #00d4ff, 0 0 16px #00d4ff60' }}
+            />
+          </motion.div>
+          {/* Second orbiting dot */}
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
+            className="absolute"
+            style={{ inset: '-10px' }}
+          >
+            <div
+              className="absolute w-2 h-2 rounded-full bg-purple-400 bottom-0 right-0"
+              style={{ boxShadow: '0 0 6px #7c3aed' }}
+            />
+          </motion.div>
           {/* Rotating gradient ring */}
           <motion.div
             animate={{ rotate: 360 }}
