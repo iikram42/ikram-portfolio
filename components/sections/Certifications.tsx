@@ -49,7 +49,7 @@ export function Certifications() {
                     </>
                   ) : (
                     <>
-                      <Clock className="w-3.5 h-3.5 text-orange-400" style={{ animation: 'spin 3s linear infinite' }} />
+                      <Clock className="w-3.5 h-3.5 text-orange-400 animate-spin [animation-duration:3s]" />
                       <span className="text-xs text-orange-400 font-mono">In Progress</span>
                     </>
                   )}

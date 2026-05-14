@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export function CursorGlow() {
-  const [isTouch, setIsTouch] = useState(false)
+  const [isTouch, setIsTouch] = useState<boolean | null>(null)
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
   const springX = useSpring(cursorX, { stiffness: 500, damping: 40 })
@@ -20,7 +20,7 @@ export function CursorGlow() {
     return () => window.removeEventListener('mousemove', move)
   }, [cursorX, cursorY])
 
-  if (isTouch) return null
+  if (isTouch === null || isTouch) return null
 
   return (
     <>

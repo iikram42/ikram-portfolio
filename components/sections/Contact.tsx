@@ -15,9 +15,22 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    // Wire up to Resend or Formspree in production
-    await new Promise((r) => setTimeout(r, 1000))
-    setStatus('sent')
+    try {
+      const res = await fetch('https://formspree.io/f/xpwzgvqo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (res.ok) {
+        setStatus('sent')
+      } else {
+        setStatus('idle')
+        alert('Something went wrong. Please email me directly at iikramkirmani@gmail.com')
+      }
+    } catch {
+      setStatus('idle')
+      alert('Network error. Please email me directly at iikramkirmani@gmail.com')
+    }
   }
 
   const LINKS = [

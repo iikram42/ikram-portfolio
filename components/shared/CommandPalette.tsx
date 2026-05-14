@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Terminal, User, Briefcase, Code2, Star, Award, FileDown, Mail, X } from 'lucide-react'
 import { NAV_ITEMS } from '@/lib/constants'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const SECTION_ICONS: Record<string, any> = {
+const SECTION_ICONS: Record<string, React.FC<{ className?: string }>> = {
   hero: Terminal,
   about: User,
   experience: Briefcase,

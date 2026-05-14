@@ -25,7 +25,7 @@ export function Navbar() {
           if (e.isIntersecting) setActiveSection(e.target.id)
         })
       },
-      { rootMargin: '-40% 0px -40% 0px' }
+      { rootMargin: '-10% 0px -60% 0px' }
     )
     ids.forEach((id) => {
       const el = document.getElementById(id)

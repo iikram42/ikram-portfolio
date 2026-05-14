@@ -53,11 +53,13 @@ export function Experience() {
                           {proj.bullets.map((b, k) => (
                             <li key={k} className="text-sm text-white/50 leading-relaxed flex gap-2">
                               <span className="text-cyan-400/50 mt-1 flex-shrink-0">·</span>
-                              <span
-                                dangerouslySetInnerHTML={{
-                                  __html: b.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white/80">$1</strong>'),
-                                }}
-                              />
+                              <span>
+                                {b.split(/\*\*(.*?)\*\*/g).map((part, pi) =>
+                                  pi % 2 === 1
+                                    ? <strong key={pi} className="text-white/80">{part}</strong>
+                                    : part
+                                )}
+                              </span>
                             </li>
                           ))}
                         </ul>

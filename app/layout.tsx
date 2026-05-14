@@ -27,11 +27,13 @@ export const metadata: Metadata = {
     title: 'Ikram Kirmani — Cloud / DevOps Engineer',
     description: 'Cloud & DevOps Engineer. AWS · Kubernetes · Terraform · CI/CD.',
     siteName: 'Ikram Kirmani Portfolio',
+    images: [{ url: '/avatar.jpg', width: 800, height: 800, alt: 'Ikram Kirmani' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Ikram Kirmani — Cloud / DevOps Engineer',
     description: 'Cloud & DevOps Engineer. AWS · Kubernetes · Terraform · CI/CD.',
+    images: ['/avatar.jpg'],
   },
   robots: { index: true, follow: true },
 }
