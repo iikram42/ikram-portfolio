@@ -7,13 +7,13 @@ export const BIO = {
   tagline: "Building infrastructure that scales. Automating everything that doesn't.",
   summary:
     'Cloud / DevOps Engineer with 1+ years of experience designing and implementing scalable cloud infrastructure across AWS, Azure, and GCP. Adept at deploying automation with Terraform and Ansible, streamlining CI/CD pipelines, containerizing applications, and securing cloud environments.',
-  location: 'Aurangabad, India',
+  location: 'Deggendorf, Germany',
   email: 'iikramkirmani@gmail.com',
   phone: '+91 9146929255',
   education: {
     degree: 'B.Tech in Information Technology',
     institution: 'MGM University',
-    location: 'Aurangabad, India',
+    location: 'Deggendorf, Germany',
     period: '2021 – 2025',
     cgpa: '7.69',
   },
