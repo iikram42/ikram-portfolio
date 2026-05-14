@@ -28,8 +28,8 @@ export const STATS: MetricStat[] = [
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
-    company: 'Kyzein Developers',
-    role: 'Cloud / DevOps Engineer',
+    company: 'Shaats Pvt. Ltd.',
+    role: 'Cloud Engineer Intern',
     period: 'Apr 2024 – Apr 2025',
     location: 'Remote',
     projects: [
