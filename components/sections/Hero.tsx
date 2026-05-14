@@ -39,7 +39,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-green-500/20 mb-6"
           >
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs font-mono text-green-400">Available for opportunities</span>
+            <span className="text-xs font-mono text-green-400">Student @ DIT · Open to work</span>
           </motion.div>
 
           {/* Name */}

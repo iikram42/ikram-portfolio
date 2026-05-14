@@ -41,8 +41,11 @@ export function Contact() {
         <SectionReveal direction="left">
           <div className="space-y-6">
             <p className="text-white/60 text-lg leading-relaxed">
-              I&#39;m currently open to full-time Cloud / DevOps roles and freelance infrastructure
-              consulting. Whether you have a project in mind or just want to say hello, my inbox is open.
+              Currently a student at <span className="text-cyan-400 font-medium">DIT</span>, studying{' '}
+              <span className="text-cyan-400 font-medium">High Performance Computing (HPC)</span>, while
+              actively building cloud infrastructure and DevOps projects.
+              Open to internships, collaborations, and freelance work.
+              Whether you have a project in mind or just want to say hello, my inbox is open.
             </p>
             <div className="space-y-3">
               {LINKS.map(({ href, Icon, label, hoverColor }) => (

@@ -126,6 +126,7 @@ export function About() {
               <div className="flex flex-col gap-3 pt-1">
                 {[
                   { Icon: GraduationCap, color: 'text-purple-400', text: `${BIO.education.degree} — ${BIO.education.institution} (${BIO.education.period}) · CGPA ${BIO.education.cgpa}` },
+                  { Icon: GraduationCap, color: 'text-cyan-400', text: 'Currently studying HPC at DIT' },
                   { Icon: Server, color: 'text-green-400', text: '1+ year production cloud infrastructure experience' },
                   { Icon: Code2, color: 'text-orange-400', text: 'AWS · Azure · GCP · Kubernetes · Terraform' },
                 ].map(({ Icon, color, text }, i) => (
