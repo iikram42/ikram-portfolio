@@ -137,25 +137,50 @@ export const SKILLS: Skill[] = [
 
 export const CERTIFICATIONS: Certification[] = [
   {
-    name: 'AWS Certified Solutions Architect – Associate',
-    issuer: 'Amazon Web Services',
-    status: 'in-progress',
+    name: 'Oracle Cloud Infrastructure 2025 Certified Architect Associate',
+    issuer: 'Oracle',
+    date: 'Oct 2025',
+    expires: 'Oct 2027',
+    status: 'earned',
+    credentialUrl:
+      'https://catalog-education.oracle.com/ords/certview/sharebadge?id=3BC8FDE472E2CA4C00E43DC33F590805D5E71DD7482F5D0549F085B9B59A4FD1',
+    pdfUrl: '/cert-oci-architect.pdf',
+    skills: ['Cloud Infrastructure', 'DevOps Tools'],
+  },
+  {
+    name: 'Oracle Cloud Infrastructure 2025 Certified Generative AI Professional',
+    issuer: 'Oracle',
+    date: 'Oct 2025',
+    status: 'earned',
+    credentialUrl:
+      'https://catalog-education.oracle.com/ords/certview/sharebadge?id=28371BBC7EC2D2BF262FE65BC52BF06B3DAFFDD7EF1FD1AE19E6BE0280FC6EB4',
+    pdfUrl: '/cert-oci-genai.pdf',
+    skills: ['Artificial Intelligence (AI)', 'Cloud Infrastructure'],
   },
   {
     name: 'Google Cloud Study Jam 2023',
     issuer: 'Google / GDSC MGM University',
     date: '2023',
     status: 'earned',
+    skills: ['Cloud Infrastructure', 'Networking', 'GenAI'],
+  },
+  {
+    name: 'AWS Certified Solutions Architect – Associate',
+    issuer: 'Amazon Web Services',
+    status: 'in-progress',
+    skills: ['AWS', 'Cloud Architecture'],
   },
   {
     name: 'Certified Kubernetes Administrator (CKA)',
     issuer: 'Cloud Native Computing Foundation',
     status: 'in-progress',
+    skills: ['Kubernetes', 'Container Orchestration'],
   },
   {
     name: 'HashiCorp Terraform Associate',
     issuer: 'HashiCorp',
     status: 'in-progress',
+    skills: ['Terraform', 'Infrastructure as Code'],
   },
 ]
 

@@ -35,7 +35,11 @@ export interface Certification {
   name: string
   issuer: string
   date?: string
+  expires?: string
   status: 'earned' | 'in-progress'
+  credentialUrl?: string
+  pdfUrl?: string
+  skills?: string[]
 }
 
 export interface MetricStat {
