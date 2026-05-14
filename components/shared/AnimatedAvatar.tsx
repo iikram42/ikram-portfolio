@@ -60,21 +60,32 @@ export function AnimatedAvatar() {
         className="relative w-full h-full rounded-2xl overflow-hidden border border-cyan-400/30"
         style={{ boxShadow: '0 0 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,0,0,0.5)' }}
       >
-        {/* Photo */}
+        {/* Photo — illustrated / duotone style */}
         <Image
           src="/avatar.jpg"
           alt="Ikram Kirmani"
           fill
           className="object-cover object-top"
           priority
+          style={{
+            filter: 'contrast(1.25) saturate(1.4) brightness(1.05)',
+          }}
         />
 
-        {/* Cyan color grade overlay */}
+        {/* Duotone layer — shadows cyan, highlights white */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(180deg, rgba(0,212,255,0.08) 0%, rgba(0,0,0,0.35) 100%)',
-            mixBlendMode: 'multiply',
+            background: 'linear-gradient(160deg, rgba(0,212,255,0.18) 0%, rgba(10,5,30,0.45) 100%)',
+            mixBlendMode: 'color',
+          }}
+        />
+
+        {/* Poster / graphic-art sharpening layer */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(5,10,20,0.75) 100%)',
           }}
         />
 
