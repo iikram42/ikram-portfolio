@@ -1,122 +1,18 @@
 'use client'
 
-import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { MapPin, GraduationCap, Code2, Server } from 'lucide-react'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { GlassCard } from '@/components/shared/GlassCard'
+import { AnimatedAvatar } from '@/components/shared/AnimatedAvatar'
 import { BIO, ACHIEVEMENTS } from '@/lib/data'
 
 function AvatarCard() {
   return (
     <SectionReveal direction="left">
       <div className="flex flex-col items-center gap-6">
-        {/* Animated avatar */}
-        <div className="relative w-56 h-56 md:w-64 md:h-64" style={{ perspective: '600px' }}>
-          {/* Outer orbit ring — tilted 3D */}
-          <motion.div
-            animate={{ rotateY: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-            className="absolute rounded-full border border-cyan-400/20"
-            style={{
-              inset: '-24px',
-              transformStyle: 'preserve-3d',
-              transform: 'rotateX(70deg)',
-            }}
-          />
-          {/* Middle orbit ring */}
-          <motion.div
-            animate={{ rotateY: -360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-            className="absolute rounded-full border border-purple-500/15"
-            style={{
-              inset: '-14px',
-              transformStyle: 'preserve-3d',
-              transform: 'rotateX(60deg) rotateZ(30deg)',
-            }}
-          />
-          {/* Orbiting dot */}
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-            className="absolute"
-            style={{ inset: '-20px' }}
-          >
-            <div
-              className="absolute w-3 h-3 rounded-full bg-cyan-400 top-0 left-1/2 -translate-x-1/2"
-              style={{ boxShadow: '0 0 8px #00d4ff, 0 0 16px #00d4ff60' }}
-            />
-          </motion.div>
-          {/* Second orbiting dot */}
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
-            className="absolute"
-            style={{ inset: '-10px' }}
-          >
-            <div
-              className="absolute w-2 h-2 rounded-full bg-purple-400 bottom-0 right-0"
-              style={{ boxShadow: '0 0 6px #7c3aed' }}
-            />
-          </motion.div>
-          {/* Rotating gradient ring */}
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            className="absolute inset-0 rounded-full"
-            style={{
-              background:
-                'conic-gradient(from 0deg, #00d4ff, #7c3aed, #10b981, #00d4ff)',
-              padding: '3px',
-              borderRadius: '9999px',
-            }}
-          >
-            <div className="w-full h-full rounded-full bg-background" />
-          </motion.div>
+        <AnimatedAvatar />
 
-          {/* Second slower ring */}
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
-            className="absolute -inset-2 rounded-full"
-            style={{
-              background:
-                'conic-gradient(from 180deg, transparent 60%, rgba(0,212,255,0.4) 80%, transparent 100%)',
-              borderRadius: '9999px',
-            }}
-          />
-
-          {/* Glow pulse */}
-          <motion.div
-            animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute inset-0 rounded-full"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%)',
-            }}
-          />
-
-          {/* Photo */}
-          <div className="absolute inset-[3px] rounded-full overflow-hidden border-2 border-white/10">
-            <Image
-              src="/avatar.jpg"
-              alt="Ikram Kirmani"
-              fill
-              className="object-cover object-top"
-              priority
-            />
-          </div>
-
-          {/* Status dot */}
-          <motion.div
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute bottom-3 right-3 w-4 h-4 rounded-full bg-green-400 border-2 border-background z-10"
-          />
-        </div>
-
-        {/* Name + title under photo */}
+        {/* Name + title */}
         <div className="text-center">
           <h3 className="text-xl font-bold text-white">{BIO.alias}</h3>
           <p className="text-cyan-400 font-mono text-sm mt-1">{BIO.title}</p>
@@ -126,17 +22,14 @@ function AvatarCard() {
           </div>
         </div>
 
-        {/* Quick stats row */}
+        {/* Quick stats */}
         <div className="grid grid-cols-3 gap-3 w-full">
           {[
             { value: '1+', label: 'Years Exp' },
             { value: '4+', label: 'Projects' },
             { value: '3', label: 'Clouds' },
           ].map((s, i) => (
-            <div
-              key={i}
-              className="glass rounded-xl p-3 text-center border border-white/5"
-            >
+            <div key={i} className="glass rounded-xl p-3 text-center border border-white/5">
               <div className="text-lg font-bold gradient-text">{s.value}</div>
               <div className="text-[10px] text-white/40 mt-0.5">{s.label}</div>
             </div>
