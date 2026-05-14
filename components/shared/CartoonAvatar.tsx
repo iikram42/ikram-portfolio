@@ -31,11 +31,21 @@ export function CartoonAvatar() {
       const w = canvas.width
       const h = canvas.height
 
-      // ── Step 1: Bilateral-like smoothing (box blur) ──
+      // ── Step 1: Replace near-white background with dark ──
+      for (let i = 0; i < d.length; i += 4) {
+        const r = d[i], g = d[i + 1], b = d[i + 2]
+        const brightness = (r + g + b) / 3
+        const isNearWhite = r > 200 && g > 200 && b > 200 && brightness > 210
+        if (isNearWhite) {
+          d[i] = 8; d[i + 1] = 8; d[i + 2] = 18
+        }
+      }
+
+      // ── Step 2: Smoothing (box blur) ──
       const blurred = boxBlur(d, w, h, 2)
 
-      // ── Step 2: Posterize blurred data ──
-      const levels = 6
+      // ── Step 3: Posterize blurred data ──
+      const levels = 7
       const factor = 255 / (levels - 1)
       for (let i = 0; i < blurred.length; i += 4) {
         blurred[i]     = Math.round(blurred[i] / factor) * factor
@@ -43,28 +53,27 @@ export function CartoonAvatar() {
         blurred[i + 2] = Math.round(blurred[i + 2] / factor) * factor
       }
 
-      // ── Step 3: Boost saturation on posterized data ──
+      // ── Step 4: Boost saturation ──
       for (let i = 0; i < blurred.length; i += 4) {
         const r = blurred[i] / 255
         const g = blurred[i + 1] / 255
         const b = blurred[i + 2] / 255
         const [h2, s, l] = rgbToHsl(r, g, b)
-        const [nr, ng, nb] = hslToRgb(h2, Math.min(1, s * 1.7), l)
+        const [nr, ng, nb] = hslToRgb(h2, Math.min(1, s * 1.8), Math.min(1, l * 1.05))
         blurred[i]     = nr * 255
         blurred[i + 1] = ng * 255
         blurred[i + 2] = nb * 255
       }
 
-      // ── Step 4: Edge detection (Sobel) on grayscale ──
+      // ── Step 5: Edge detection (Sobel) on original ──
       const edges = sobelEdges(d, w, h)
 
-      // ── Step 5: Composite: blurred+posterized base + dark edges ──
+      // ── Step 6: Composite: posterized + sharp outlines ──
       for (let i = 0; i < d.length; i += 4) {
         const px = i / 4
         const edge = edges[px]
-        if (edge > 55) {
-          // Dark outline
-          const strength = Math.min(1, (edge - 55) / 120)
+        if (edge > 45) {
+          const strength = Math.min(1, (edge - 45) / 100)
           blurred[i]     = blurred[i] * (1 - strength)
           blurred[i + 1] = blurred[i + 1] * (1 - strength)
           blurred[i + 2] = blurred[i + 2] * (1 - strength)

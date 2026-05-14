@@ -166,7 +166,7 @@ export function Certifications() {
   const inProgress = CERTIFICATIONS.filter((c) => c.status === 'in-progress')
 
   return (
-    <section id="certifications" className="py-24 max-w-7xl mx-auto px-6">
+    <section id="certifications" className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <SectionReveal>
         <div className="flex items-center gap-3 mb-3">
           <span className="text-cyan-400 font-mono text-sm">05.</span>

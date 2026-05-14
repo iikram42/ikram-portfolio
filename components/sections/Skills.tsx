@@ -156,7 +156,7 @@ export function Skills() {
 
   return (
     <section id="skills" className="py-24 bg-gradient-to-b from-transparent via-muted/20 to-transparent">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionReveal>
           <div className="flex items-center gap-3 mb-3">
             <span className="text-cyan-400 font-mono text-sm">04.</span>
