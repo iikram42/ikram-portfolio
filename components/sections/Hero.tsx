@@ -137,7 +137,7 @@ export function Hero() {
             {[
               { href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon, hover: 'hover:text-cyan-400 hover:border-cyan-400/40' },
               { href: SOCIAL_LINKS.github, Icon: GithubIcon, hover: 'hover:text-cyan-400 hover:border-cyan-400/40' },
-              { href: SOCIAL_LINKS.youtube, Icon: YoutubeIcon, hover: 'hover:text-red-400 hover:border-red-400/40' },
+              { href: SOCIAL_LINKS.youtube, Icon: YoutubeIcon, hover: 'hover:text-cyan-400 hover:border-cyan-400/40' },
             ].map(({ href, Icon, hover }) => (
               <a
                 key={href}

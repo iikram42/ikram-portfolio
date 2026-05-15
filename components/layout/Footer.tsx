@@ -22,7 +22,7 @@ export function Footer() {
             { href: SOCIAL_LINKS.youtube, Icon: YoutubeIcon },
           ].map(({ href, Icon }) => (
             <a key={href} href={href} target="_blank" rel="noopener noreferrer"
-              className="text-white/30 hover:text-white/70 transition-colors">
+              className="text-white/30 hover:text-cyan-400 transition-colors">
               <Icon className="w-4 h-4" />
             </a>
           ))}
