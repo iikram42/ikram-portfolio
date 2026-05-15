@@ -3,29 +3,37 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
+/*
+ * Visual structure (outermost → innermost):
+ *
+ *  ┌─────────────────────────────────────┐  ← outer container 300×380
+ *  │  [spinning colorful background]     │  ← conic gradient rotating like a clock
+ *  │   ┌─────────────────────────┐       │
+ *  │   │                         │       │  ← 22px of rotating background visible
+ *  │   │      YOUR PHOTO         │       │     on all sides around the image
+ *  │   │      (full portrait)    │       │
+ *  │   │                         │       │
+ *  │   └─────────────────────────┘       │
+ *  │                                     │
+ *  └─────────────────────────────────────┘
+ *
+ *  overflow:hidden → nothing leaks outside 300×380 ever.
+ *  isolation:isolate → z-index is sandboxed, never overlaps siblings.
+ */
 export function ProfileAvatar() {
   return (
-    /*
-     * Layout (outermost → innermost):
-     * 1. Outer frame (280x340) — rotating gradient background fills this, overflow hidden
-     * 2. Image box (inset 8px) — the actual photo at near-full size with 1px colored border
-     * 3. Available badge inside the image box
-     *
-     * Result: photo looks normal size, thin colored border around it,
-     * 8px band of rotating gradient visible around the outside — like a glowing frame.
-     * Nothing bleeds outside 280x340.
-     */
     <div
       style={{
-        width: 280,
-        height: 340,
+        width: 300,
+        height: 380,
         position: 'relative',
-        isolation: 'isolate',
-        overflow: 'hidden',
-        borderRadius: 20,
+        isolation: 'isolate',   /* sandboxes stacking — never overlaps page content */
+        overflow: 'hidden',     /* hard clip — nothing bleeds outside this box */
+        borderRadius: 24,
+        flexShrink: 0,
       }}
     >
-      {/* ── Rotating gradient background — spins like clock behind the photo ── */}
+      {/* ── Rotating colorful background — spins clockwise like a clock ── */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
@@ -33,38 +41,38 @@ export function ProfileAvatar() {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          width: 800,
-          height: 800,
+          width: 900,
+          height: 900,
           x: '-50%',
           y: '-50%',
           background:
-            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 25%, #ff6b35 50%, #10b981 75%, #00d4ff 100%)',
+            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 25%, #f59e0b 50%, #10b981 75%, #00d4ff 100%)',
           zIndex: 0,
         }}
       />
 
-      {/* ── Image container — 8px inset shows 8px of rotating gradient as background frame ── */}
+      {/* ── Image — sits on top of the spinning background ── */}
+      {/* 22px inset → 22px band of rotating background clearly visible on all sides */}
       <div
         style={{
           position: 'absolute',
-          inset: 6,            /* 6px gap on all sides = rotating background clearly visible */
-          borderRadius: 12,
+          inset: 22,
+          borderRadius: 16,
           overflow: 'hidden',
           zIndex: 1,
-          border: '1px solid rgba(255,255,255,0.15)',  /* thin subtle border on image */
+          boxShadow: '0 0 0 1px rgba(255,255,255,0.12)',  /* thin white border on photo edge */
         }}
       >
-        {/* Photo — full size, untouched */}
         <Image
           src="/avatar-portrait.jpg"
           alt="Ikram Kirmani"
           fill
           className="object-cover object-top"
           priority
-          sizes="264px"
+          sizes="256px"
         />
 
-        {/* Bottom fade so badge is readable */}
+        {/* Bottom fade for badge readability */}
         <div
           style={{
             position: 'absolute',
@@ -72,7 +80,7 @@ export function ProfileAvatar() {
             left: 0,
             right: 0,
             height: 64,
-            background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)',
             pointerEvents: 'none',
           }}
         />
