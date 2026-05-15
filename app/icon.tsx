@@ -12,35 +12,17 @@ export default function Icon() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#0a0a0a',
+        background: 'linear-gradient(135deg, #00b4d8 0%, #6d28d9 100%)',
         borderRadius: '7px',
-        border: '1.5px solid rgba(0,212,255,0.5)',
-        position: 'relative',
-        overflow: 'hidden',
       }}
     >
-      {/* Gradient glow behind text */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'radial-gradient(circle at 50% 50%, rgba(0,212,255,0.18) 0%, transparent 70%)',
-          display: 'flex',
-        }}
-      />
-      {/* IK text */}
       <span
         style={{
-          fontSize: 15,
+          fontSize: 16,
           fontWeight: 900,
-          letterSpacing: '-0.5px',
-          fontFamily: 'monospace',
-          background: 'linear-gradient(135deg, #00d4ff 0%, #a855f7 100%)',
-          backgroundClip: 'text',
-          color: 'transparent',
-          WebkitBackgroundClip: 'text',
-          position: 'relative',
+          color: '#ffffff',
+          letterSpacing: '-1px',
+          fontFamily: 'Arial Black, Arial, sans-serif',
           lineHeight: 1,
         }}
       >

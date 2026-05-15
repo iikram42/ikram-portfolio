@@ -202,9 +202,9 @@ export function HeroScene() {
   return (
     <Canvas
       camera={{ position: [0, 0, 8], fov: 50 }}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       dpr={[1, 1.5]}
-      style={{ background: 'transparent' }}
+      style={{ background: '#05050e' }}
     >
       {/* Lighting */}
       <ambientLight intensity={0.2} />

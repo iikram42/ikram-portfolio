@@ -17,24 +17,26 @@ export function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-background">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#05050e' }}>
 
-      {/* ── 3D Scene — full viewport ── */}
-      <div className="absolute inset-0 z-0">
+      {/* ── 3D Scene — full viewport, dark bg so no white flash ── */}
+      <div className="absolute inset-0 z-0" style={{ background: '#05050e' }}>
         <HeroScene />
       </div>
 
-      {/* ── Vignette: only darken edges, keep center transparent ── */}
-      {/* Left text area backing */}
+      {/* ── Left text panel: subtle dark vignette only where text sits ── */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 70% 90% at 20% 50%, rgba(5,5,15,0.82) 0%, rgba(5,5,15,0.55) 50%, transparent 100%)',
+            'linear-gradient(to right, rgba(5,5,14,0.88) 0%, rgba(5,5,14,0.60) 35%, rgba(5,5,14,0.15) 65%, rgba(5,5,14,0.0) 100%)',
         }}
       />
       {/* Bottom fade into next section */}
-      <div className="absolute bottom-0 left-0 right-0 z-[1] h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      <div
+        className="absolute bottom-0 left-0 right-0 z-[1] h-28 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, #05050e 0%, transparent 100%)' }}
+      />
 
       {/* ── Content ── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-28 pb-20">
