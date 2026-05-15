@@ -3,7 +3,7 @@
 import { MapPin, GraduationCap, Code2, Server, BookOpen, Calendar } from 'lucide-react'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { GlassCard } from '@/components/shared/GlassCard'
-import { CartoonAvatar } from '@/components/shared/CartoonAvatar'
+import { ProfileAvatar } from '@/components/shared/ProfileAvatar'
 import { BIO, ACHIEVEMENTS } from '@/lib/data'
 
 function StatPill({ value, label }: { value: string; label: string }) {
@@ -42,7 +42,7 @@ export function About() {
             <div className="flex flex-col items-center gap-5 w-full lg:w-auto">
               {/* Avatar centered on mobile, left-aligned on lg */}
               <div className="mx-auto lg:mx-0">
-                <CartoonAvatar />
+                <ProfileAvatar />
               </div>
 
               {/* Name + role under avatar — visible on mobile only */}
