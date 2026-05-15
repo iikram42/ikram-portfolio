@@ -57,7 +57,7 @@ export function ProfileAvatar() {
         style={{
           position: 'absolute',
           inset: 22,
-          borderRadius: 16,
+          borderRadius: 6,
           overflow: 'hidden',
           zIndex: 1,
           boxShadow: '0 0 0 1px rgba(255,255,255,0.12)',  /* thin white border on photo edge */
