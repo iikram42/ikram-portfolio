@@ -136,27 +136,46 @@ function InProgressCard({ cert }: { cert: Certification }) {
   const color = ISSUER_COLORS[cert.issuer] || '#00d4ff'
 
   return (
-    <div className="glass rounded-xl p-4 flex items-start gap-3" style={{ border: `1px solid ${color}30` }}>
-      <div
-        className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 border mt-0.5"
-        style={{ background: `${color}10`, borderColor: `${color}20` }}
-      >
-        <Award className="w-4 h-4" style={{ color }} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <h4 className="text-sm font-medium text-white/80 leading-snug mb-1">{cert.name}</h4>
-        <p className="text-xs text-white/30 mb-2">{cert.issuer}</p>
-        {cert.skills && (
-          <div className="flex flex-wrap gap-1">
+    <div
+      className="relative glass rounded-2xl overflow-hidden h-full flex flex-col"
+      style={{ border: `1px solid ${color}30` }}
+    >
+      {/* Top accent line — same as EarnedCard */}
+      <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: `linear-gradient(90deg, ${color}, transparent)` }} />
+
+      <div className="p-5 flex flex-col flex-1">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border"
+            style={{ background: `${color}15`, borderColor: `${color}30` }}
+          >
+            <Award className="w-5 h-5" style={{ color }} />
+          </div>
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <Clock className="w-3.5 h-3.5 text-orange-400 animate-spin [animation-duration:3s]" />
+            <span className="text-xs text-orange-400 font-mono">In Progress</span>
+          </div>
+        </div>
+
+        {/* Name */}
+        <h3 className="font-semibold text-white/90 text-sm leading-snug mb-1">{cert.name}</h3>
+        <p className="text-xs text-white/40 mb-3">{cert.issuer}</p>
+
+        {/* Skills */}
+        {cert.skills && cert.skills.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-auto">
             {cert.skills.map((s) => (
-              <span key={s} className="text-[10px] text-white/30 font-mono">{s}</span>
+              <span
+                key={s}
+                className="text-[10px] px-2 py-0.5 rounded-full border font-mono"
+                style={{ color: `${color}cc`, borderColor: `${color}25`, background: `${color}0a` }}
+              >
+                {s}
+              </span>
             ))}
           </div>
         )}
-      </div>
-      <div className="flex items-center gap-1 flex-shrink-0">
-        <Clock className="w-3 h-3 text-orange-400 animate-spin [animation-duration:3s]" />
-        <span className="text-[10px] text-orange-400 font-mono">In Progress</span>
       </div>
     </div>
   )
@@ -203,9 +222,9 @@ export function Certifications() {
             <span className="text-xs text-white/20 font-mono ml-1">({inProgress.length})</span>
           </div>
         </SectionReveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {inProgress.map((cert, i) => (
-            <SectionReveal key={cert.name} delay={i * 0.08}>
+            <SectionReveal key={cert.name} delay={i * 0.08} className="h-full">
               <InProgressCard cert={cert} />
             </SectionReveal>
           ))}
