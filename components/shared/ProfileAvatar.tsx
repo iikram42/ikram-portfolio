@@ -6,21 +6,26 @@ import { motion } from 'framer-motion'
 export function ProfileAvatar() {
   return (
     /*
-     * Outer container — rotating gradient fills this entirely.
-     * Photo sits on top of it, smaller, so gradient shows around all edges.
-     * overflow:hidden clips everything — zero bleed outside this box.
+     * Layout (outermost → innermost):
+     * 1. Outer frame (280x340) — rotating gradient background fills this, overflow hidden
+     * 2. Image box (inset 8px) — the actual photo at near-full size with 1px colored border
+     * 3. Available badge inside the image box
+     *
+     * Result: photo looks normal size, thin colored border around it,
+     * 8px band of rotating gradient visible around the outside — like a glowing frame.
+     * Nothing bleeds outside 280x340.
      */
     <div
       style={{
-        width: 260,
-        height: 300,
+        width: 280,
+        height: 340,
         position: 'relative',
         isolation: 'isolate',
         overflow: 'hidden',
         borderRadius: 20,
       }}
     >
-      {/* ── Rotating gradient background — fills the full container, spins like a clock ── */}
+      {/* ── Rotating gradient background — spins like clock behind the photo ── */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
@@ -28,8 +33,8 @@ export function ProfileAvatar() {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          width: 700,
-          height: 700,
+          width: 800,
+          height: 800,
           x: '-50%',
           y: '-50%',
           background:
@@ -38,49 +43,41 @@ export function ProfileAvatar() {
         }}
       />
 
-      {/* ── Slight dark wash over the gradient so it's not too harsh ── */}
+      {/* ── Image container — 8px inset shows 8px of rotating gradient as background frame ── */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
-          background: 'rgba(0,0,0,0.15)',
-          zIndex: 1,
-        }}
-      />
-
-      {/* ── Photo — 10px inset on all sides so gradient background is visible around it ── */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 10,
+          inset: 8,            /* 8px gap on all sides = rotating background visible */
           borderRadius: 14,
           overflow: 'hidden',
-          zIndex: 2,
+          zIndex: 1,
+          border: '1px solid rgba(255,255,255,0.15)',  /* thin subtle border on image */
         }}
       >
+        {/* Photo — full size, untouched */}
         <Image
           src="/avatar-portrait.jpg"
           alt="Ikram Kirmani"
           fill
           className="object-cover object-top"
           priority
-          sizes="260px"
+          sizes="264px"
         />
 
-        {/* Bottom fade */}
+        {/* Bottom fade so badge is readable */}
         <div
           style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
-            height: 60,
-            background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)',
+            height: 64,
+            background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)',
             pointerEvents: 'none',
           }}
         />
 
-        {/* Available badge inside photo */}
+        {/* Available badge */}
         <motion.div
           animate={{ opacity: [1, 0.5, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -94,11 +91,11 @@ export function ProfileAvatar() {
             gap: 6,
             padding: '4px 10px',
             borderRadius: 999,
-            background: 'rgba(0,0,0,0.72)',
+            background: 'rgba(0,0,0,0.75)',
             backdropFilter: 'blur(8px)',
             border: '1px solid rgba(34,197,94,0.35)',
             whiteSpace: 'nowrap',
-            zIndex: 3,
+            zIndex: 2,
           }}
         >
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }} />

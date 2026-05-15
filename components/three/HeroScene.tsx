@@ -206,13 +206,17 @@ export function HeroScene() {
       dpr={[1, 1.5]}
       style={{ background: '#05050e' }}
       onCreated={({ gl }) => {
-        // Auto-restore WebGL context if browser reclaims it after idle
         const canvas = gl.domElement
+        // Correct fix: use WEBGL_lose_context extension to restore (not forceContextRestore which doesn't exist)
         canvas.addEventListener('webglcontextlost', (e) => {
           e.preventDefault()
-          setTimeout(() => {
-            try { gl.forceContextRestore() } catch (_) {}
-          }, 500)
+          const ext = gl.getContext().getExtension('WEBGL_lose_context')
+          if (ext) {
+            setTimeout(() => ext.restoreContext(), 1000)
+          }
+        })
+        canvas.addEventListener('webglcontextrestored', () => {
+          gl.setSize(canvas.clientWidth, canvas.clientHeight)
         })
       }}
     >
