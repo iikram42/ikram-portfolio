@@ -15,30 +15,30 @@ export function ProfileAvatar() {
         borderRadius: 18,
       }}
     >
-      {/* ── Rotating conic gradient — large square centered so rotation is smooth ── */}
+      {/* ── Rotating conic gradient — large square centered ── */}
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
         style={{
           position: 'absolute',
           top: '50%',
           left: '50%',
-          width: 600,
-          height: 600,
-          marginTop: -300,
-          marginLeft: -300,
+          width: 700,
+          height: 700,
+          x: '-50%',
+          y: '-50%',
           background:
-            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 33%, #10b981 66%, #00d4ff 100%)',
+            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 25%, #10b981 50%, #f59e0b 75%, #00d4ff 100%)',
           zIndex: 0,
         }}
       />
 
-      {/* ── Photo — 2px inset from edges creates the visible rotating border ── */}
+      {/* ── Photo — 4px inset so rotating border is clearly visible ── */}
       <div
         style={{
           position: 'absolute',
-          inset: 2,
-          borderRadius: 16,
+          inset: 4,
+          borderRadius: 14,
           overflow: 'hidden',
           zIndex: 1,
         }}

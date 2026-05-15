@@ -163,7 +163,7 @@ export function About() {
                 Achievements
               </h3>
               {ACHIEVEMENTS.map((a, i) => (
-                <GlassCard key={i} className="p-4 flex flex-col gap-2 glass-hover">
+                <GlassCard key={i} className="p-4 flex flex-col gap-2 gradient-border glass-hover">
                   <div className="flex items-start justify-between gap-2 flex-wrap">
                     <span className="font-semibold text-white/90 text-sm">{a.title}</span>
                     <span className="text-[10px] text-white/30 whitespace-nowrap flex-shrink-0 mt-0.5">
