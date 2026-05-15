@@ -5,50 +5,42 @@ import { motion } from 'framer-motion'
 
 export function ProfileAvatar() {
   return (
-    /* Outer wrapper — isolates stacking context, nothing bleeds outside */
+    /*
+     * Outer wrapper — fixed size, overflow:hidden so NOTHING bleeds outside.
+     * isolation:isolate keeps z-index contained so it never overlaps siblings.
+     */
     <div
-      className="relative"
-      style={{ width: 240, height: 320, isolation: 'isolate' }}
+      style={{
+        width: 240,
+        height: 320,
+        position: 'relative',
+        isolation: 'isolate',
+        overflow: 'hidden',
+        borderRadius: 18,
+      }}
     >
-      {/* Ambient glow — pointer-events none, clipped by parent overflow */}
+      {/* ── Rotating gradient border layer ── */}
       <motion.div
-        animate={{ opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute rounded-2xl pointer-events-none"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
         style={{
-          inset: 0,
+          position: 'absolute',
+          inset: -80,           // large enough so corners always cover during rotation
           background:
-            'radial-gradient(ellipse at center, rgba(0,212,255,0.18) 0%, transparent 70%)',
-          filter: 'blur(18px)',
+            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 40%, #10b981 70%, #00d4ff 100%)',
           zIndex: 0,
         }}
       />
 
-      {/* Rotating gradient border — stays inside the container (inset: 0) */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none"
+      {/* ── Photo sits on top, leaving 2px gap = visible border ── */}
+      <div
         style={{
-          inset: 0,
-          borderRadius: 18,
-          padding: 2,
-          background:
-            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 40%, #10b981 70%, #00d4ff 100%)',
+          position: 'absolute',
+          inset: 2,
+          borderRadius: 16,
+          overflow: 'hidden',
           zIndex: 1,
         }}
-      >
-        {/* Inner mask to make it look like a border */}
-        <div
-          className="w-full h-full"
-          style={{ borderRadius: 16, background: '#05050e' }}
-        />
-      </motion.div>
-
-      {/* Photo — sits above border, contained */}
-      <div
-        className="absolute overflow-hidden"
-        style={{ inset: 3, borderRadius: 15, zIndex: 2 }}
       >
         <Image
           src="/avatar-portrait.jpg"
@@ -58,36 +50,54 @@ export function ProfileAvatar() {
           priority
           sizes="240px"
         />
-        {/* Very subtle bottom fade only */}
+
+        {/* Subtle bottom fade */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
           style={{
-            background:
-              'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 60,
+            background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)',
+            pointerEvents: 'none',
           }}
         />
-      </div>
 
-      {/* Available badge — inside container, no overflow */}
-      <motion.div
-        animate={{ opacity: [1, 0.5, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/30"
-        style={{
-          bottom: 10,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: 'rgba(0,0,0,0.75)',
-          backdropFilter: 'blur(8px)',
-          zIndex: 3,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-        <span className="text-[10px] font-mono text-green-400 tracking-wide">
-          Open to Work
-        </span>
-      </motion.div>
+        {/* Available badge — inside the photo box */}
+        <motion.div
+          animate={{ opacity: [1, 0.5, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          style={{
+            position: 'absolute',
+            bottom: 10,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '4px 10px',
+            borderRadius: 999,
+            background: 'rgba(0,0,0,0.72)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(34,197,94,0.3)',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              background: '#4ade80',
+              animation: 'pulse 2s infinite',
+            }}
+          />
+          <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#4ade80', letterSpacing: '0.05em' }}>
+            Open to Work
+          </span>
+        </motion.div>
+      </div>
     </div>
   )
 }
