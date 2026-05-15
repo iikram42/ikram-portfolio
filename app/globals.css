@@ -181,6 +181,11 @@
   }
 }
 
+/* Canvas fallback — dark bg even if WebGL context is lost */
+canvas {
+  background: #05050e !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

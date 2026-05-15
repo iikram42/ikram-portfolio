@@ -205,6 +205,16 @@ export function HeroScene() {
       gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       dpr={[1, 1.5]}
       style={{ background: '#05050e' }}
+      onCreated={({ gl }) => {
+        // Auto-restore WebGL context if browser reclaims it after idle
+        const canvas = gl.domElement
+        canvas.addEventListener('webglcontextlost', (e) => {
+          e.preventDefault()
+          setTimeout(() => {
+            try { gl.forceContextRestore() } catch (_) {}
+          }, 500)
+        })
+      }}
     >
       {/* Lighting */}
       <ambientLight intensity={0.2} />
