@@ -5,103 +5,69 @@ import { motion } from 'framer-motion'
 
 export function ProfileAvatar() {
   return (
-    <div className="relative flex items-center justify-center" style={{ width: 260, height: 300 }}>
+    <div className="relative" style={{ width: 240, height: 320 }}>
 
-      {/* Ambient glow behind the photo */}
+      {/* Soft background glow */}
       <motion.div
-        animate={{ opacity: [0.35, 0.65, 0.35], scale: [1, 1.06, 1] }}
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute rounded-2xl pointer-events-none"
+        className="absolute -inset-4 rounded-2xl pointer-events-none"
         style={{
-          inset: -16,
-          background: 'radial-gradient(ellipse at center, rgba(0,212,255,0.18) 0%, rgba(124,58,237,0.10) 50%, transparent 75%)',
-          filter: 'blur(12px)',
+          background: 'radial-gradient(ellipse at center, rgba(0,212,255,0.14) 0%, transparent 70%)',
+          filter: 'blur(16px)',
         }}
       />
 
-      {/* Rotating conic gradient border */}
+      {/* Rotating border */}
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        className="absolute rounded-2xl pointer-events-none"
+        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+        className="absolute -inset-[2px] rounded-2xl pointer-events-none"
         style={{
-          inset: -2,
-          background: 'conic-gradient(from 0deg, #00d4ff, #7c3aed, #10b981, #00d4ff)',
-          borderRadius: 20,
-          padding: 2,
-        }}
-      >
-        <div className="w-full h-full rounded-[18px] bg-background" />
-      </motion.div>
-
-      {/* Second slower counter-ring */}
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none"
-        style={{
-          inset: -8,
-          borderRadius: 26,
-          border: '1px solid transparent',
-          background: 'conic-gradient(from 120deg, rgba(0,212,255,0.3), transparent 40%, rgba(124,58,237,0.3) 70%, transparent 90%) border-box',
-          WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
-          WebkitMaskComposite: 'xor',
-          maskComposite: 'exclude',
+          background: 'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 40%, #10b981 70%, #00d4ff 100%)',
+          borderRadius: 18,
         }}
       />
 
-      {/* The actual photo — untouched */}
-      <div className="relative w-full h-full rounded-2xl overflow-hidden z-10" style={{ border: '2px solid rgba(255,255,255,0.08)' }}>
+      {/* White inner mask for border gap */}
+      <div
+        className="absolute inset-0 rounded-2xl pointer-events-none z-[1]"
+        style={{ background: 'var(--color-background)', borderRadius: 16, inset: 2 }}
+      />
+
+      {/* Photo — clean, no filters */}
+      <div className="absolute inset-[3px] rounded-2xl overflow-hidden z-[2]">
         <Image
-          src="/avatar.jpg"
+          src="/avatar-portrait.jpg"
           alt="Ikram Kirmani"
           fill
           className="object-cover object-top"
           priority
-        />
-        {/* Very subtle cyan tint at bottom only — keeps face untouched */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-1/3 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to top, rgba(0,10,20,0.55) 0%, transparent 100%)',
-          }}
+          sizes="240px"
         />
       </div>
 
-      {/* Status badge — bottom left */}
+      {/* Available badge */}
       <motion.div
-        animate={{ opacity: [1, 0.6, 1] }}
+        animate={{ opacity: [1, 0.5, 1] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-green-500/30"
-        style={{ background: 'rgba(5,15,10,0.85)', backdropFilter: 'blur(8px)' }}
+        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-[3] flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/30 whitespace-nowrap"
+        style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)' }}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-        <span className="text-[9px] font-mono text-green-400 tracking-wider">Available</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+        <span className="text-[10px] font-mono text-green-400 tracking-wide">Open to Work</span>
       </motion.div>
 
-      {/* Orbiting dot 1 */}
+      {/* Orbiting dot */}
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none"
-        style={{ inset: -18 }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        className="absolute pointer-events-none z-[3]"
+        style={{ inset: -16 }}
       >
         <div
           className="absolute w-2.5 h-2.5 rounded-full bg-cyan-400 top-0 left-1/2 -translate-x-1/2"
-          style={{ boxShadow: '0 0 8px #00d4ff, 0 0 18px rgba(0,212,255,0.4)' }}
-        />
-      </motion.div>
-
-      {/* Orbiting dot 2 */}
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 11, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none"
-        style={{ inset: -12 }}
-      >
-        <div
-          className="absolute w-2 h-2 rounded-full bg-purple-400 bottom-4 right-0"
-          style={{ boxShadow: '0 0 6px #7c3aed' }}
+          style={{ boxShadow: '0 0 8px #00d4ff, 0 0 16px rgba(0,212,255,0.5)' }}
         />
       </motion.div>
     </div>
