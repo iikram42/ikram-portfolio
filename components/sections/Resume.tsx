@@ -30,8 +30,8 @@ export function Resume() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/resume.pdf"
-                download="Ikram_Kirmani_Resume.pdf"
+                href="/Ikram_Resume.pdf"
+                download="Ikram_Resume.pdf"
                 className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-cyan-400 text-black font-semibold hover:bg-cyan-300 transition-all glow-cyan"
               >
                 <FileDown className="w-4 h-4" />
