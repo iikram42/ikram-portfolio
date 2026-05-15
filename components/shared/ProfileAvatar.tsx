@@ -5,34 +5,35 @@ import { motion } from 'framer-motion'
 
 export function ProfileAvatar() {
   return (
-    /*
-     * Outer wrapper — fixed size, overflow:hidden so NOTHING bleeds outside.
-     * isolation:isolate keeps z-index contained so it never overlaps siblings.
-     */
     <div
       style={{
         width: 240,
         height: 320,
         position: 'relative',
         isolation: 'isolate',
-        overflow: 'hidden',
+        overflow: 'hidden',      /* clips everything — no bleeding outside */
         borderRadius: 18,
       }}
     >
-      {/* ── Rotating gradient border layer ── */}
+      {/* ── Rotating conic gradient — large square centered so rotation is smooth ── */}
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
         style={{
           position: 'absolute',
-          inset: -80,           // large enough so corners always cover during rotation
+          top: '50%',
+          left: '50%',
+          width: 600,
+          height: 600,
+          marginTop: -300,
+          marginLeft: -300,
           background:
-            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 40%, #10b981 70%, #00d4ff 100%)',
+            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 33%, #10b981 66%, #00d4ff 100%)',
           zIndex: 0,
         }}
       />
 
-      {/* ── Photo sits on top, leaving 2px gap = visible border ── */}
+      {/* ── Photo — 2px inset from edges creates the visible rotating border ── */}
       <div
         style={{
           position: 'absolute',
@@ -51,20 +52,20 @@ export function ProfileAvatar() {
           sizes="240px"
         />
 
-        {/* Subtle bottom fade */}
+        {/* Bottom fade */}
         <div
           style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
-            height: 60,
+            height: 64,
             background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)',
             pointerEvents: 'none',
           }}
         />
 
-        {/* Available badge — inside the photo box */}
+        {/* Available badge */}
         <motion.div
           animate={{ opacity: [1, 0.5, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -82,6 +83,7 @@ export function ProfileAvatar() {
             backdropFilter: 'blur(8px)',
             border: '1px solid rgba(34,197,94,0.3)',
             whiteSpace: 'nowrap',
+            zIndex: 2,
           }}
         >
           <span
@@ -90,10 +92,16 @@ export function ProfileAvatar() {
               height: 6,
               borderRadius: '50%',
               background: '#4ade80',
-              animation: 'pulse 2s infinite',
             }}
           />
-          <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#4ade80', letterSpacing: '0.05em' }}>
+          <span
+            style={{
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: '#4ade80',
+              letterSpacing: '0.05em',
+            }}
+          >
             Open to Work
           </span>
         </motion.div>
