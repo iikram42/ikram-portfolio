@@ -41,13 +41,13 @@ function EarnedCard({ cert }: { cert: Certification }) {
     <motion.div
       whileHover={{ y: -4, scale: 1.01 }}
       transition={{ duration: 0.2 }}
-      className={`relative glass rounded-2xl overflow-hidden bg-gradient-to-br ${bgGrad}`}
+      className={`relative glass rounded-2xl overflow-hidden bg-gradient-to-br ${bgGrad} h-full flex flex-col`}
       style={{ border: `1px solid ${color}30` }}
     >
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: `linear-gradient(90deg, ${color}, transparent)` }} />
 
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-1">
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
@@ -185,9 +185,9 @@ export function Certifications() {
             <span className="text-xs text-white/20 font-mono ml-1">({earned.length})</span>
           </div>
         </SectionReveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {earned.map((cert, i) => (
-            <SectionReveal key={cert.name} delay={i * 0.1}>
+            <SectionReveal key={cert.name} delay={i * 0.1} className="h-full">
               <EarnedCard cert={cert} />
             </SectionReveal>
           ))}
