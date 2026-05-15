@@ -113,22 +113,47 @@ export function Hero() {
           >
             <button
               onClick={() => scrollTo('projects')}
-              className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 overflow-hidden group"
+              className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden group"
               style={{
                 background: 'linear-gradient(135deg, #0050FF, #00D6FF)',
                 boxShadow: '0 0 30px rgba(0,80,255,0.3), 0 0 60px rgba(0,80,255,0.1)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'scale(1.05) translateY(-2px)'
+                ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 40px rgba(0,80,255,0.5), 0 0 80px rgba(0,214,255,0.2)'
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'scale(1) translateY(0)'
+                ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(0,80,255,0.3), 0 0 60px rgba(0,80,255,0.1)'
               }}
             >
+              {/* Shimmer sweep on hover */}
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
+                style={{ background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)', animation: 'none' }} />
               <span className="relative z-10">View Projects</span>
             </button>
             <button
               onClick={() => scrollTo('contact')}
-              className="px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+              className="px-6 py-2.5 rounded-full text-sm font-medium"
               style={{
                 color: 'rgba(255,255,255,0.8)',
                 border: '1px solid rgba(255,255,255,0.12)',
                 background: 'rgba(255,255,255,0.04)',
                 backdropFilter: 'blur(8px)',
+                transition: 'transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'scale(1.05) translateY(-2px)'
+                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,214,255,0.45)'
+                ;(e.currentTarget as HTMLElement).style.background = 'rgba(0,214,255,0.08)'
+                ;(e.currentTarget as HTMLElement).style.color = '#fff'
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.transform = 'scale(1) translateY(0)'
+                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'
+                ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+                ;(e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.8)'
               }}
             >
               Get in Touch
@@ -177,12 +202,24 @@ export function Hero() {
               { href: SOCIAL_LINKS.youtube, Icon: YoutubeIcon },
             ].map(({ href, Icon }) => (
               <a key={href} href={href} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 group"
+                className="w-9 h-9 rounded-xl flex items-center justify-center group"
                 style={{
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.08)',
-                }}>
-                <Icon className="w-4 h-4 text-white/40 group-hover:text-white transition-colors" />
+                  transition: 'border-color 0.2s ease, background 0.2s ease, transform 0.2s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,214,255,0.5)'
+                  ;(e.currentTarget as HTMLElement).style.background = 'rgba(0,214,255,0.08)'
+                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)'
+                  ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                }}
+              >
+                <Icon className="w-4 h-4 text-white/40 group-hover:text-cyan-400 transition-colors duration-200" />
               </a>
             ))}
           </motion.div>

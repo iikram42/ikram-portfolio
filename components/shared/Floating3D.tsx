@@ -1,123 +1,46 @@
 'use client'
 
-import { motion } from 'framer-motion'
-
-interface Shape {
-  size: number
-  x: string
-  y: string
-  color: string
-  duration: number
-  delay: number
-  shape: 'cube' | 'sphere' | 'ring'
-}
-
-const SHAPES: Shape[] = [
-  { size: 60, x: '5%', y: '20%', color: '#00d4ff', duration: 12, delay: 0, shape: 'cube' },
-  { size: 40, x: '90%', y: '15%', color: '#7c3aed', duration: 16, delay: 2, shape: 'sphere' },
-  { size: 50, x: '80%', y: '60%', color: '#10b981', duration: 14, delay: 4, shape: 'ring' },
-  { size: 35, x: '15%', y: '75%', color: '#f59e0b', duration: 18, delay: 6, shape: 'cube' },
-  { size: 45, x: '92%', y: '80%', color: '#00d4ff', duration: 10, delay: 1, shape: 'sphere' },
-  { size: 30, x: '50%', y: '5%', color: '#7c3aed', duration: 20, delay: 8, shape: 'ring' },
-]
-
-function Cube({ size, color }: { size: number; color: string }) {
-  return (
-    <div style={{ width: size, height: size, transformStyle: 'preserve-3d', perspective: 200 }}>
-      <motion.div
-        animate={{ rotateX: 360, rotateY: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        style={{ width: '100%', height: '100%', transformStyle: 'preserve-3d' }}
-      >
-        {/* 6 faces */}
-        {[
-          { transform: `translateZ(${size / 2}px)` },
-          { transform: `translateZ(-${size / 2}px) rotateY(180deg)` },
-          { transform: `rotateY(90deg) translateZ(${size / 2}px)` },
-          { transform: `rotateY(-90deg) translateZ(${size / 2}px)` },
-          { transform: `rotateX(90deg) translateZ(${size / 2}px)` },
-          { transform: `rotateX(-90deg) translateZ(${size / 2}px)` },
-        ].map((style, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: size,
-              height: size,
-              border: `1px solid ${color}60`,
-              background: `${color}08`,
-              backdropFilter: 'blur(2px)',
-              ...style,
-            }}
-          />
-        ))}
-      </motion.div>
-    </div>
-  )
-}
-
-function Sphere({ size, color }: { size: number; color: string }) {
-  return (
-    <motion.div
-      animate={{ rotateY: 360 }}
-      transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        border: `1px solid ${color}50`,
-        background: `radial-gradient(circle at 35% 35%, ${color}25, ${color}08 60%, transparent)`,
-        boxShadow: `0 0 ${size / 2}px ${color}20, inset 0 0 ${size / 3}px ${color}15`,
-      }}
-    />
-  )
-}
-
-function Ring({ size, color }: { size: number; color: string }) {
-  return (
-    <motion.div
-      animate={{ rotateX: 70, rotateZ: 360 }}
-      transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '50%',
-        border: `2px solid ${color}60`,
-        boxShadow: `0 0 10px ${color}30`,
-      }}
-    />
-  )
-}
-
+/* Pure CSS 3D — replaces heavy Framer Motion loops.
+   All shapes use CSS @keyframes so they never block the JS thread. */
 export function Floating3D() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {SHAPES.map((s, i) => (
-        <motion.div
-          key={i}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 10, 0],
-            opacity: [0.4, 0.7, 0.4],
-          }}
-          transition={{
-            duration: s.duration,
-            delay: s.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          style={{
-            position: 'absolute',
-            left: s.x,
-            top: s.y,
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          {s.shape === 'cube' && <Cube size={s.size} color={s.color} />}
-          {s.shape === 'sphere' && <Sphere size={s.size} color={s.color} />}
-          {s.shape === 'ring' && <Ring size={s.size} color={s.color} />}
-        </motion.div>
-      ))}
-    </div>
+    <>
+      <style>{`
+        @keyframes f3dFloat  { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-24px) rotate(6deg)} }
+        @keyframes f3dSpin   { to { transform: rotateX(360deg) rotateY(360deg); } }
+        @keyframes f3dOrbit  { to { transform: rotate(360deg); } }
+        .f3d-float { animation: f3dFloat var(--fd,14s) ease-in-out infinite var(--fdelay,0s); }
+        .f3d-cube  { animation: f3dSpin  var(--fs,9s)  linear     infinite; transform-style:preserve-3d; }
+        .f3d-ring  { animation: f3dOrbit var(--fr,11s) linear     infinite; }
+      `}</style>
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+
+        {/* Top-right cube */}
+        <div className="f3d-float absolute" style={{ '--fd':'13s','--fdelay':'0s', right:'8%', top:'18%' } as React.CSSProperties}>
+          <div className="f3d-cube" style={{ '--fs':'8s', width:44, height:44, border:'1.5px solid rgba(0,80,255,0.35)', background:'rgba(0,80,255,0.06)' } as React.CSSProperties} />
+        </div>
+
+        {/* Left mid sphere */}
+        <div className="f3d-float absolute" style={{ '--fd':'17s','--fdelay':'-5s', left:'4%', top:'45%' } as React.CSSProperties}>
+          <div style={{
+            width:38, height:38, borderRadius:'50%',
+            border:'1.5px solid rgba(0,214,255,0.3)',
+            background:'radial-gradient(circle at 35% 35%, rgba(0,214,255,0.18), rgba(0,214,255,0.04) 60%, transparent)',
+            boxShadow:'0 0 20px rgba(0,214,255,0.12)',
+          }} />
+        </div>
+
+        {/* Bottom-right ring */}
+        <div className="f3d-float absolute" style={{ '--fd':'20s','--fdelay':'-9s', right:'5%', bottom:'25%' } as React.CSSProperties}>
+          <div className="f3d-ring" style={{ '--fr':'10s', width:48, height:48, borderRadius:'50%', border:'2px solid rgba(0,80,255,0.3)', boxShadow:'0 0 12px rgba(0,80,255,0.15)' } as React.CSSProperties} />
+        </div>
+
+        {/* Top-left small cube */}
+        <div className="f3d-float absolute" style={{ '--fd':'11s','--fdelay':'-3s', left:'12%', top:'22%' } as React.CSSProperties}>
+          <div className="f3d-cube" style={{ '--fs':'12s', width:28, height:28, border:'1px solid rgba(0,214,255,0.25)', background:'rgba(0,214,255,0.04)' } as React.CSSProperties} />
+        </div>
+
+      </div>
+    </>
   )
 }

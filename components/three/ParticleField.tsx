@@ -4,7 +4,7 @@ import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-export function ParticleField({ count = 600 }: { count?: number }) {
+export function ParticleField({ count = 300 }: { count?: number }) {
   const meshRef = useRef<THREE.Points>(null)
 
   const { positions, colors } = useMemo(() => {
