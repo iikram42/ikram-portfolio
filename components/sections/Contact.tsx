@@ -1,35 +1,29 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Send, CheckCircle2 } from 'lucide-react'
+import { Mail, Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, YoutubeIcon } from '@/components/shared/SocialIcons'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { GlassCard } from '@/components/shared/GlassCard'
 import { BIO } from '@/lib/data'
 import { SOCIAL_LINKS } from '@/lib/constants'
+import { sendContactEmail } from '@/app/actions/contact'
 
 export function Contact() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    try {
-      const res = await fetch('https://formspree.io/f/xpwzgvqo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (res.ok) {
-        setStatus('sent')
-      } else {
-        setStatus('idle')
-        alert('Something went wrong. Please email me directly at iikramkirmani@gmail.com')
-      }
-    } catch {
-      setStatus('idle')
-      alert('Network error. Please email me directly at iikramkirmani@gmail.com')
+    const result = await sendContactEmail(form)
+    if (result.ok) {
+      setStatus('sent')
+      setForm({ name: '', email: '', message: '' })
+    } else {
+      setStatus('error')
+      setErrorMsg(result.error ?? 'Something went wrong.')
     }
   }
 
@@ -86,6 +80,14 @@ export function Contact() {
                 <CheckCircle2 className="w-12 h-12 text-green-400" />
                 <h3 className="text-xl font-bold text-white">Message Sent!</h3>
                 <p className="text-white/50">I&#39;ll get back to you as soon as possible.</p>
+                <button onClick={() => setStatus('idle')} className="text-xs text-white/30 hover:text-white/60 transition-colors">Send another</button>
+              </div>
+            ) : status === 'error' ? (
+              <div className="flex flex-col items-center justify-center py-8 gap-4 text-center">
+                <AlertCircle className="w-12 h-12 text-red-400" />
+                <h3 className="text-xl font-bold text-white">Failed to Send</h3>
+                <p className="text-white/50 text-sm">{errorMsg}</p>
+                <button onClick={() => setStatus('idle')} className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">Try again</button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
