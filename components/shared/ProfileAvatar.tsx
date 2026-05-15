@@ -43,9 +43,9 @@ export function ProfileAvatar() {
             left: '50%',
             width: 900,
             height: 900,
-            /* asymmetric bands: each color occupies a clear arc, rotation is obvious */
+            /* single cyan color — bright to dark so spin is visible */
             background:
-              'conic-gradient(from 0deg, #00d4ff 0% 20%, #7c3aed 20% 45%, #f59e0b 45% 65%, #10b981 65% 85%, #ff4e8a 85% 100%)',
+              'conic-gradient(from 0deg, #00d4ff 0%, #003a4d 50%, #00d4ff 100%)',
             zIndex: 0,
           }}
         />
