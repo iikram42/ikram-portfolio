@@ -33,12 +33,12 @@ export function ProfileAvatar() {
         }}
       />
 
-      {/* ── Photo — 4px inset so rotating border is clearly visible ── */}
+      {/* ── Photo — 14px inset so rotating background colors are clearly visible ── */}
       <div
         style={{
           position: 'absolute',
-          inset: 4,
-          borderRadius: 14,
+          inset: 14,
+          borderRadius: 10,
           overflow: 'hidden',
           zIndex: 1,
         }}

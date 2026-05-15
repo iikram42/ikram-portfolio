@@ -41,7 +41,8 @@ function EarnedCard({ cert }: { cert: Certification }) {
     <motion.div
       whileHover={{ y: -4, scale: 1.01 }}
       transition={{ duration: 0.2 }}
-      className={`relative glass rounded-2xl overflow-hidden border border-white/8 bg-gradient-to-br ${bgGrad}`}
+      className={`relative glass rounded-2xl overflow-hidden bg-gradient-to-br ${bgGrad}`}
+      style={{ border: `1px solid ${color}30` }}
     >
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: `linear-gradient(90deg, ${color}, transparent)` }} />
@@ -135,7 +136,7 @@ function InProgressCard({ cert }: { cert: Certification }) {
   const color = ISSUER_COLORS[cert.issuer] || '#00d4ff'
 
   return (
-    <div className="glass rounded-xl p-4 border border-white/5 flex items-start gap-3">
+    <div className="glass rounded-xl p-4 flex items-start gap-3" style={{ border: `1px solid ${color}30` }}>
       <div
         className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 border mt-0.5"
         style={{ background: `${color}10`, borderColor: `${color}20` }}
