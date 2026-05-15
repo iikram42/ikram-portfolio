@@ -47,8 +47,8 @@ export function ProfileAvatar() {
       <div
         style={{
           position: 'absolute',
-          inset: 8,            /* 8px gap on all sides = rotating background visible */
-          borderRadius: 14,
+          inset: 6,            /* 6px gap on all sides = rotating background clearly visible */
+          borderRadius: 12,
           overflow: 'hidden',
           zIndex: 1,
           border: '1px solid rgba(255,255,255,0.15)',  /* thin subtle border on image */

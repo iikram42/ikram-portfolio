@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo, useState } from 'react'
+import { useRef, useMemo, useState, useCallback } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Float, Line, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
@@ -199,25 +199,23 @@ const CONNECTIONS: Array<[number, number, string]> = [
 ]
 
 export function HeroScene() {
+  const [canvasKey, setCanvasKey] = useState(0)
+
+  const handleContextLost = useCallback((e: Event) => {
+    e.preventDefault()
+    // Re-mount the entire Canvas — cleanest recovery, works for all context loss causes
+    setTimeout(() => setCanvasKey((k) => k + 1), 500)
+  }, [])
+
   return (
     <Canvas
+      key={canvasKey}
       camera={{ position: [0, 0, 8], fov: 50 }}
       gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       dpr={[1, 1.5]}
       style={{ background: '#05050e' }}
       onCreated={({ gl }) => {
-        const canvas = gl.domElement
-        // Correct fix: use WEBGL_lose_context extension to restore (not forceContextRestore which doesn't exist)
-        canvas.addEventListener('webglcontextlost', (e) => {
-          e.preventDefault()
-          const ext = gl.getContext().getExtension('WEBGL_lose_context')
-          if (ext) {
-            setTimeout(() => ext.restoreContext(), 1000)
-          }
-        })
-        canvas.addEventListener('webglcontextrestored', () => {
-          gl.setSize(canvas.clientWidth, canvas.clientHeight)
-        })
+        gl.domElement.addEventListener('webglcontextlost', handleContextLost)
       }}
     >
       {/* Lighting */}
