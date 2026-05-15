@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Send, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Mail, Phone, Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, YoutubeIcon } from '@/components/shared/SocialIcons'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import { GlassCard } from '@/components/shared/GlassCard'
@@ -29,6 +29,7 @@ export function Contact() {
 
   const LINKS = [
     { href: `mailto:${BIO.email}`, Icon: Mail, label: BIO.email, hoverColor: 'group-hover:text-cyan-400 group-hover:border-cyan-400/40' },
+    { href: `tel:${BIO.phone}`, Icon: Phone, label: BIO.phone, hoverColor: 'group-hover:text-green-400 group-hover:border-green-400/40' },
     { href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon, label: 'linkedin.com/in/ikramkirmani', hoverColor: 'group-hover:text-cyan-400 group-hover:border-cyan-400/40' },
     { href: SOCIAL_LINKS.github, Icon: GithubIcon, label: 'github.com/iikram42', hoverColor: 'group-hover:text-cyan-400 group-hover:border-cyan-400/40' },
     { href: SOCIAL_LINKS.youtube, Icon: YoutubeIcon, label: '@IkramKirmani', hoverColor: 'group-hover:text-red-400 group-hover:border-red-400/40' },

@@ -9,7 +9,7 @@ export const BIO = {
     'Cloud / DevOps Engineer with 1+ years of experience designing and implementing scalable cloud infrastructure across AWS, Azure, and GCP. Adept at deploying automation with Terraform and Ansible, streamlining CI/CD pipelines, containerizing applications, and securing cloud environments.',
   location: 'Deggendorf, Germany',
   email: 'iikramkirmani@gmail.com',
-  phone: '+91 9146929255',
+  phone: '+49 15511 047741',
   education: {
     degree: 'B.Tech in Information Technology',
     institution: 'MGM University',
