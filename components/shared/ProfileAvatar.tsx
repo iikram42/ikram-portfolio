@@ -7,86 +7,85 @@ export function ProfileAvatar() {
   return (
     <>
       <style>{`
-        @keyframes avatarSpin {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to   { transform: translate(-50%, -50%) rotate(360deg); }
+        @keyframes avatarSpinCW {
+          from { transform: translate(-50%, -50%) rotate(0deg);   }
+          to   { transform: translate(-50%, -50%) rotate(360deg);  }
         }
-        .avatar-bg-spin {
-          animation: avatarSpin 6s linear infinite !important;
-          animation-play-state: running !important;
+        @keyframes avatarSpinCCW {
+          from { transform: rotate(0deg);   }
+          to   { transform: rotate(-360deg); }
         }
+        .av-spin-cw  { animation: avatarSpinCW  8s linear infinite !important; animation-play-state: running !important; }
+        .av-spin-ccw { animation: avatarSpinCCW 14s linear infinite !important; animation-play-state: running !important; }
       `}</style>
 
       {/*
-       * Outer wrapper — LARGER than the image.
-       * The spinning background fills this wrapper.
-       * The image card sits on top, centered, SMALLER — so spinning bg
-       * is clearly visible AROUND the image (not as a border ON it).
+       * Single wrapper — overflow:hidden is the hard wall.
+       * Nothing inside can ever bleed outside this box.
+       * isolation:isolate sandboxes z-index from page content.
        */}
-      <div
-        style={{
-          width: 320,
-          height: 400,
-          position: 'relative',
-          isolation: 'isolate',
-          overflow: 'hidden',
-          borderRadius: 28,
-          flexShrink: 0,
-        }}
-      >
-        {/* ── Rotating background — fills the wrapper, spins clockwise ── */}
+      <div style={{
+        position: 'relative',
+        width: 260,
+        height: 310,
+        overflow: 'hidden',
+        isolation: 'isolate',
+        borderRadius: 22,
+        flexShrink: 0,
+      }}>
+
+        {/* ── Rotating conic gradient — fills whole wrapper, spins clockwise ── */}
         <div
-          className="avatar-bg-spin"
+          className="av-spin-cw"
           style={{
             position: 'absolute',
             top: '50%',
             left: '50%',
-            width: 1000,
-            height: 1000,
-            background:
-              'conic-gradient(from 0deg, #00d4ff 0%, #003a4d 50%, #00d4ff 100%)',
+            width: 800,
+            height: 800,
+            background: 'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 33%, #10b981 66%, #00d4ff 100%)',
             zIndex: 0,
           }}
         />
 
-        {/*
-         * ── Image card — sits cleanly ON TOP of the spinning background ──
-         * Has margin/inset so spinning background is visible around it.
-         * Image itself is clean — no colored border, glass look.
-         */}
-        <div
+        {/* ── Glow pulse ── */}
+        <motion.div
+          animate={{ opacity: [0.15, 0.4, 0.15] }}
+          transition={{ duration: 3, repeat: Infinity }}
           style={{
             position: 'absolute',
-            top: 32,
-            left: 32,
-            right: 32,
-            bottom: 32,
-            borderRadius: 18,
-            overflow: 'hidden',
-            zIndex: 2,
-            boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1)',
+            inset: 0,
+            background: 'radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%)',
+            zIndex: 1,
+            pointerEvents: 'none',
           }}
-        >
-          {/* Clean image — full, untouched */}
+        />
+
+        {/* ── Photo — sits on top, 4px gap shows rotating ring around it ── */}
+        <div style={{
+          position: 'absolute',
+          inset: 4,
+          borderRadius: 18,
+          overflow: 'hidden',
+          zIndex: 2,
+          boxShadow: '0 0 0 1px rgba(255,255,255,0.1)',
+        }}>
           <Image
             src="/avatar-portrait.jpg"
             alt="Ikram Kirmani"
             fill
             className="object-cover object-top"
             priority
-            sizes="256px"
+            sizes="252px"
           />
 
-          {/* Bottom gradient for badge */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0, left: 0, right: 0,
-              height: 70,
-              background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
-              pointerEvents: 'none',
-            }}
-          />
+          <div style={{
+            position: 'absolute',
+            bottom: 0, left: 0, right: 0,
+            height: 70,
+            background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+            pointerEvents: 'none',
+          }} />
 
           {/* Badge */}
           <motion.div
@@ -115,6 +114,7 @@ export function ProfileAvatar() {
             </span>
           </motion.div>
         </div>
+
       </div>
     </>
   )
