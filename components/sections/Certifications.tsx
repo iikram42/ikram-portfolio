@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Award, Clock, CheckCircle2, ExternalLink, FileDown, ChevronRight } from 'lucide-react'
 import { SectionReveal } from '@/components/shared/SectionReveal'
+import { TiltCard } from '@/components/shared/TiltCard'
 import { CERTIFICATIONS } from '@/lib/data'
 import type { Certification } from '@/types'
 
@@ -207,7 +208,9 @@ export function Certifications() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {earned.map((cert, i) => (
             <SectionReveal key={cert.name} delay={i * 0.1} className="h-full">
-              <EarnedCard cert={cert} />
+              <TiltCard className="h-full" intensity={10}>
+                <EarnedCard cert={cert} />
+              </TiltCard>
             </SectionReveal>
           ))}
         </div>
@@ -225,7 +228,9 @@ export function Certifications() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {inProgress.map((cert, i) => (
             <SectionReveal key={cert.name} delay={i * 0.08} className="h-full">
-              <InProgressCard cert={cert} />
+              <TiltCard className="h-full" intensity={10}>
+                <InProgressCard cert={cert} />
+              </TiltCard>
             </SectionReveal>
           ))}
         </div>

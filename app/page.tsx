@@ -4,6 +4,8 @@ import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import { CursorGlow } from '@/components/shared/CursorGlow'
 import { CommandPalette } from '@/components/shared/CommandPalette'
 import { AmbientOrbs } from '@/components/shared/AmbientOrbs'
+import { FloatingGrid } from '@/components/shared/FloatingGrid'
+import { Floating3D } from '@/components/shared/Floating3D'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Experience } from '@/components/sections/Experience'
@@ -19,6 +21,8 @@ export default function Home() {
       <ScrollProgress />
       <CursorGlow />
       <Navbar />
+      <FloatingGrid />
+      <Floating3D />
       <main className="relative">
         <AmbientOrbs />
         <Hero />

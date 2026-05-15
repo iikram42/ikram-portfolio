@@ -24,7 +24,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <TiltCard className="h-full" intensity={8}>
         <GlassCard className="h-full flex flex-col gradient-border relative overflow-hidden" hover={false}>
           <div className="flex items-start justify-between gap-3 mb-4">
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${meta.color} border`}>
+            {/* Icon floats highest in 3D space */}
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${meta.color} border`}
+              style={{ transform: 'translateZ(20px)', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
               <Icon className="w-5 h-5" />
             </div>
             {project.github && (
@@ -39,10 +41,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             )}
           </div>
 
-          <h3 className="font-semibold text-white mb-2 text-base">{project.title}</h3>
-          <p className="text-white/50 text-sm leading-relaxed mb-4 flex-1">{project.description}</p>
+          {/* Title + description — floated forward in Z space */}
+          <div style={{ transform: 'translateZ(10px)' }}>
+            <h3 className="font-semibold text-white mb-2 text-base">{project.title}</h3>
+            <p className="text-white/50 text-sm leading-relaxed mb-4 flex-1">{project.description}</p>
+          </div>
 
-          <div className="grid grid-cols-3 gap-2 mb-4">
+          {/* Metrics — mid depth */}
+          <div className="grid grid-cols-3 gap-2 mb-4" style={{ transform: 'translateZ(6px)' }}>
             {project.metrics.map((m, i) => (
               <div key={i} className="glass rounded-md p-2 text-center border border-white/5">
                 <div className="text-xs font-bold text-white/80">{m.value}</div>
