@@ -5,38 +5,51 @@ import { motion } from 'framer-motion'
 
 export function ProfileAvatar() {
   return (
-    <div className="relative" style={{ width: 240, height: 320 }}>
-
-      {/* Soft background glow */}
+    /* Outer wrapper — isolates stacking context, nothing bleeds outside */
+    <div
+      className="relative"
+      style={{ width: 240, height: 320, isolation: 'isolate' }}
+    >
+      {/* Ambient glow — pointer-events none, clipped by parent overflow */}
       <motion.div
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        animate={{ opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -inset-4 rounded-2xl pointer-events-none"
+        className="absolute rounded-2xl pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(0,212,255,0.14) 0%, transparent 70%)',
-          filter: 'blur(16px)',
+          inset: 0,
+          background:
+            'radial-gradient(ellipse at center, rgba(0,212,255,0.18) 0%, transparent 70%)',
+          filter: 'blur(18px)',
+          zIndex: 0,
         }}
       />
 
-      {/* Rotating border */}
+      {/* Rotating gradient border — stays inside the container (inset: 0) */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-        className="absolute -inset-[2px] rounded-2xl pointer-events-none"
+        className="absolute pointer-events-none"
         style={{
-          background: 'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 40%, #10b981 70%, #00d4ff 100%)',
+          inset: 0,
           borderRadius: 18,
+          padding: 2,
+          background:
+            'conic-gradient(from 0deg, #00d4ff 0%, #7c3aed 40%, #10b981 70%, #00d4ff 100%)',
+          zIndex: 1,
         }}
-      />
+      >
+        {/* Inner mask to make it look like a border */}
+        <div
+          className="w-full h-full"
+          style={{ borderRadius: 16, background: '#05050e' }}
+        />
+      </motion.div>
 
-      {/* White inner mask for border gap */}
+      {/* Photo — sits above border, contained */}
       <div
-        className="absolute inset-0 rounded-2xl pointer-events-none z-[1]"
-        style={{ background: 'var(--color-background)', borderRadius: 16, inset: 2 }}
-      />
-
-      {/* Photo — clean, no filters */}
-      <div className="absolute inset-[3px] rounded-2xl overflow-hidden z-[2]">
+        className="absolute overflow-hidden"
+        style={{ inset: 3, borderRadius: 15, zIndex: 2 }}
+      >
         <Image
           src="/avatar-portrait.jpg"
           alt="Ikram Kirmani"
@@ -45,30 +58,35 @@ export function ProfileAvatar() {
           priority
           sizes="240px"
         />
+        {/* Very subtle bottom fade only */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)',
+          }}
+        />
       </div>
 
-      {/* Available badge */}
+      {/* Available badge — inside container, no overflow */}
       <motion.div
         animate={{ opacity: [1, 0.5, 1] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-[3] flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/30 whitespace-nowrap"
-        style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)' }}
+        className="absolute flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/30"
+        style={{
+          bottom: 10,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(0,0,0,0.75)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 3,
+          whiteSpace: 'nowrap',
+        }}
       >
         <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-        <span className="text-[10px] font-mono text-green-400 tracking-wide">Open to Work</span>
-      </motion.div>
-
-      {/* Orbiting dot */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        className="absolute pointer-events-none z-[3]"
-        style={{ inset: -16 }}
-      >
-        <div
-          className="absolute w-2.5 h-2.5 rounded-full bg-cyan-400 top-0 left-1/2 -translate-x-1/2"
-          style={{ boxShadow: '0 0 8px #00d4ff, 0 0 16px rgba(0,212,255,0.5)' }}
-        />
+        <span className="text-[10px] font-mono text-green-400 tracking-wide">
+          Open to Work
+        </span>
       </motion.div>
     </div>
   )
