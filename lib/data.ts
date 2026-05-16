@@ -66,7 +66,7 @@ export const PROJECTS: Project[] = [
       { label: 'Routing Accuracy', value: '92%' },
       { label: 'Uptime SLA', value: '99.9%' },
     ],
-    github: 'https://github.com/iikram42',
+    github: 'https://github.com/iikram42/AI-ticketing-system',
     category: 'infrastructure',
   },
   {
@@ -80,7 +80,7 @@ export const PROJECTS: Project[] = [
       { label: 'Security Coverage', value: '100%' },
       { label: 'Rollback Time', value: '< 2 min' },
     ],
-    github: 'https://github.com/iikram42',
+    github: 'https://github.com/iikram42/DevSecOps-Pipeline-with-SAST-DAST-Secrets-Scanning',
     category: 'devsecops',
   },
   {
@@ -94,7 +94,7 @@ export const PROJECTS: Project[] = [
       { label: 'Alert Coverage', value: '100%' },
       { label: 'MTTR Reduced', value: '35%' },
     ],
-    github: 'https://github.com/iikram42',
+    github: 'https://github.com/iikram42/Cloud-Projects',
     category: 'monitoring',
   },
   {
@@ -108,7 +108,35 @@ export const PROJECTS: Project[] = [
       { label: 'Backup Consistency', value: '100%' },
       { label: 'Deploy Frequency', value: '3x increase' },
     ],
-    github: 'https://github.com/iikram42',
+    github: 'https://github.com/iikram42/AWS-Jenkins-Pipeline',
+    category: 'automation',
+  },
+  {
+    id: 'ecommerce-autoscaling',
+    title: 'E-Commerce Platform with Auto Scaling',
+    description:
+      'Production-grade e-commerce platform with Blue-Green deployments, auto-scaling groups, load balancing, and zero-downtime releases on AWS. Infrastructure fully managed via Terraform.',
+    stack: ['AWS', 'Terraform', 'EC2', 'ALB', 'Auto Scaling', 'Docker', 'GitHub Actions'],
+    metrics: [
+      { label: 'Downtime', value: '0 min' },
+      { label: 'Scale Time', value: '< 3 min' },
+      { label: 'Cost Optimized', value: '30%' },
+    ],
+    github: 'https://github.com/iikram42/E-Commerce-Platform-with-Auto-Scaling-and-Blue-Green-Deployments-Public',
+    category: 'infrastructure',
+  },
+  {
+    id: 'mlops-pipeline',
+    title: 'MLOps Pipeline for ML Model Deployment',
+    description:
+      'End-to-end MLOps pipeline for training, versioning, and deploying ML models to production with automated retraining, model monitoring, and CI/CD integration.',
+    stack: ['Python', 'Docker', 'Kubernetes', 'GitHub Actions', 'AWS', 'MLflow'],
+    metrics: [
+      { label: 'Deploy Time', value: '5 min' },
+      { label: 'Model Accuracy', value: '94%' },
+      { label: 'Automation', value: '100%' },
+    ],
+    github: 'https://github.com/iikram42/MLOps-Pipeline-for-ML-Model-Deployment',
     category: 'automation',
   },
 ]
